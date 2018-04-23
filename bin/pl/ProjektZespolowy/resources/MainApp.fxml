@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.ProjektZespolowy.controllers.MainAppController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="1000.0" prefWidth="900.0">
+         <children>
+            <AnchorPane fx:id="pane" prefHeight="580.0" prefWidth="880.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </AnchorPane>
+            <GridPane prefHeight="200.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Label text="Moc">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="power" onMouseDragged="#changePower" prefWidth="300.0" showTickLabels="true" showTickMarks="true" value="25.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
+                     <children>
+                        <Label text="Nachylenie">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="incline" max="90.0" onMouseDragged="#changeIncline" prefWidth="230.0" showTickLabels="true" showTickMarks="true" value="0.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Gęstość Powietrza">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="airDensity" blockIncrement="0.0" majorTickUnit="5.0" max="15.0" onMouseDragged="#change" prefWidth="230.0" showTickLabels="true" showTickMarks="true" value="2.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Wiatr">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="wind" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <Label text="Pozycja Łucznika">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="archerPosition" onMouseDragged="#changePosition" prefWidth="250.0" showTickLabels="true" showTickMarks="true" value="80.0" />
+                  <Button fx:id="reset" mnemonicParsing="false" onAction="#reset" text="Reset">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <Label text="Wybierz rodzaj strzały">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="typeOfArrow" onAction="#setArrow" prefWidth="200.0" />
+                  <Button fx:id="start" mnemonicParsing="false" onAction="#start" text="Strzel">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
