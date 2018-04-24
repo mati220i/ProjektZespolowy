@@ -108,7 +108,7 @@ public class MainAppController {
 				int y = (int) drawing.getArrow().getTranslateY();
 
 				Powietrze powietrze = new Powietrze();
-				Strzala strzala = new Strzala(0.0001, nachylenie, x, y);
+				Strzala strzala = new Strzala(0.01, nachylenie, x, y);
 				Wiatr wiatr = new Wiatr();
 				
 				Wzory wzory = new Wzory();
@@ -118,10 +118,9 @@ public class MainAppController {
 
 				
 				double speed = 0.31 + power.getValue() / 100;
-				
-				
-				int newX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, speed); // ostatnim parametrem mozna bedzie sterowac predkoscia strzaly po strzale
-				int newY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, speed);
+
+				int newX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, speed * 1000); // ostatnim parametrem mozna bedzie sterowac predkoscia strzaly po strzale
+				int newY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, speed );
 				
 				
 

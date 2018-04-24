@@ -25,7 +25,7 @@ public class MainApp extends Application {
 		
 		Scene scene = new Scene(pane);
 
-		primaryStage.setTitle("Projekt Zespo³owy");
+		primaryStage.setTitle("Projekt Zespo?owy");
 		primaryStage.setX(30);
 		primaryStage.setY(30);
 		primaryStage.setHeight(1020);

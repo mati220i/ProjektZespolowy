@@ -45,8 +45,8 @@ public class Strzala {
      * Konstruktor strzaly z jej wszystkimi danymi
      * @param predkosc -  pr�dko�� strza�y
      * @param nachylenie - nachylenie wzgl�dem poziomu
-     * @param X - wsp�rz�dna X w uk�adzie
-     * @param Y - wsp�rz�dna Y w uk�adzie
+     * @param x - wsp�rz�dna X w uk�adzie
+     * @param y - wsp�rz�dna Y w uk�adzie
      */
     public Strzala(double predkosc, double nachylenie, double x, double y) {
     	this.masa = 0.0324;
