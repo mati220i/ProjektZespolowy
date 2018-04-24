@@ -121,6 +121,7 @@ public class MainAppController {
 
 				int newX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, speed * 1000); // ostatnim parametrem mozna bedzie sterowac predkoscia strzaly po strzale
 				int newY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, speed );
+
 				
 				
 
