@@ -1,8 +1,13 @@
-package pl.ProjektZespolowy.physic;
-
+package pl.ProjektZespolowy.jPhysic;
+/**
+ * Klasa Wiatr
+ */
 public class Wiatr {
-
-    private double silaWiatru = 0.0;//0-100 metrów
+	
+	/**
+	 * Sila wiatru w m/s
+	 */
+    private double silaWiatru = 0.0;
 
     public void setSilaWiatru(double silaWiatru) {
         this.silaWiatru = silaWiatru;

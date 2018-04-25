@@ -19,10 +19,10 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import pl.ProjektZespolowy.drawing.Drawing;
-import pl.ProjektZespolowy.physic.Powietrze;
-import pl.ProjektZespolowy.physic.Strzala;
-import pl.ProjektZespolowy.physic.Wiatr;
-import pl.ProjektZespolowy.physic.Wzory;
+import pl.ProjektZespolowy.jPhysic.Powietrze;
+import pl.ProjektZespolowy.jPhysic.Strzala;
+import pl.ProjektZespolowy.jPhysic.Wiatr;
+import pl.ProjektZespolowy.jPhysic.Wzory;
 
 public class MainAppController {
 	@FXML

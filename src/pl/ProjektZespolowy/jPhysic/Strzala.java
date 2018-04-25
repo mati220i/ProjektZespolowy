@@ -1,12 +1,10 @@
-package pl.ProjektZespolowy.physic;
+package pl.ProjektZespolowy.jPhysic;
 
 import java.lang.Math;
 /**
  * Klasa Strzaly - dane fizyczne strzaly
  * @author Tomasz
- *
  */
-//dane strza�y
 public class Strzala {
 	/**
 	 * masa strza�y w kg (0.0324 waga strza�y testowej 500 gr )

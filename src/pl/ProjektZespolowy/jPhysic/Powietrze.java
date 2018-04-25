@@ -1,8 +1,12 @@
-package pl.ProjektZespolowy.physic;
-
+package pl.ProjektZespolowy.jPhysic;
+/**
+ * Klasa Powietrza
+ */
 public class Powietrze {
-    private double gestoscPowietrza = 1.22; //kg/m^3 gestosc powietrza
-
+	/**
+	 * gestosc powietrza w kg.m^3
+	 */
+    private double gestoscPowietrza = 1.22;
 
     public double getGestoscPowietrza() {
         return gestoscPowietrza;

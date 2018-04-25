@@ -1,4 +1,4 @@
-package pl.ProjektZespolowy.physic;
+package pl.ProjektZespolowy.jPhysic;
 
 public class Main {
 
@@ -7,7 +7,7 @@ public class Main {
 		Powietrze powietrze = new Powietrze();
 		Wiatr wiatr = new Wiatr();
 		Wzory wzory = new Wzory();
-
+		
 		for(int i = 1; i < 101; i++){
 			System.out.println(" " + wzory.otrzymajDrogeX(strzala, powietrze, wiatr, 1) + ",  " +wzory.otrzymajDrogeY(strzala, powietrze, wiatr, 1));
 		}
