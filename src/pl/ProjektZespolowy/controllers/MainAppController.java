@@ -110,6 +110,8 @@ public class MainAppController {
 				TranslateTransition transitionForGrass2 = new TranslateTransition(new Duration(1), drawing.getGrass2());
 				TranslateTransition transitionForGrass3 = new TranslateTransition(new Duration(1), drawing.getGrass3());
 				TranslateTransition transitionForGrass4 = new TranslateTransition(new Duration(1), drawing.getGrass4());
+				TranslateTransition transitionForArcArm = new TranslateTransition(new Duration(1), drawing.getArc().getArm());
+				TranslateTransition transitionForArcString = new TranslateTransition(new Duration(1), drawing.getArc().getString());
 				
 				
 				double nachylenie = incline.getValue();
@@ -136,6 +138,11 @@ public class MainAppController {
 				int xGrass4 = (int) drawing.getGrass4().getTranslateX();
 				int yGrass4 = (int) drawing.getGrass4().getTranslateY();
 				
+				int xArcArm = (int) drawing.getArc().getArm().getTranslateX();
+				int yArcArm = (int) drawing.getArc().getArm().getTranslateY();
+				int xArcString = (int) drawing.getArc().getString().getTranslateX();
+				int yArcString = (int) drawing.getArc().getString().getTranslateY();
+				
 				
 				Powietrze powietrze = new Powietrze();
 				Strzala strzala = new Strzala(0.01, nachylenie, x, y);
@@ -150,9 +157,11 @@ public class MainAppController {
 				double speed = 0.31 + power.getValue() / 100;
 
 				// ostatnim parametrem mozna bedzie sterowac predkoscia strzaly po strzale
-				int newX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, speed * 1000) + x; 
-				int newY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, speed ) + y;
-
+				int nextX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, speed * 1000);
+				int nextY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, speed );
+				int newX = nextX + x; 
+				int newY = nextY + y;
+				
 				int newXArcher = xArcher;
 				int newYArcher = yArcher;
 				
@@ -172,18 +181,26 @@ public class MainAppController {
 				int newXGrass4 = xGrass4;
 				int newYGrass4 = yGrass4;
 				
+				int newXArcArm = xArcArm;
+				int newYArcArm = yArcArm;
+				int newXArcString = xArcString;
+				int newYArcString = yArcString;
 				
-				System.out.println(drawing.getArcher().getLayoutX() + " " + drawing.getArcher().getLayoutX());
+				
 				if(newY < 200) {
-					newXArcher -= 5;
-					newXCloud1 -= 5;
-					newXCloud2 -= 5;
-					newXCloud3 -= 5;
-					newXGrass1 -= 5;
-					newXGrass2 -= 5;
-					newXGrass3 -= 5;
-					newXGrass4 -= 5;
+					newXArcher -= nextX;
+					newXCloud1 -= nextX;
+					newXCloud2 -= nextX;
+					newXCloud3 -= nextX;
+					newXGrass1 -= nextX;
+					newXGrass2 -= nextX;
+					newXGrass3 -= nextX;
+					newXGrass4 -= nextX;
+					newXArcArm -= nextX;
+					newXArcString -= nextX;
+					
 				}
+				
 				
 
 				transition.setFromX(x);
@@ -235,7 +252,17 @@ public class MainAppController {
 				transitionForGrass4.setToY(newYGrass4);
 				transitionForGrass4.play();
 
-				
+				transitionForArcArm.setFromX(xArcArm);
+				transitionForArcArm.setFromY(yArcArm);
+				transitionForArcArm.setToX(newXArcArm);
+				transitionForArcArm.setToY(newYArcArm);
+				transitionForArcArm.play();
+				transitionForArcString.setFromX(xArcString);
+				transitionForArcString.setFromY(yArcString);
+				transitionForArcString.setToX(newXArcString);
+				transitionForArcString.setToY(newYArcString);
+				transitionForArcString.play();
+
 				
 				double arcY = drawing.getArrow().getTranslateY();
 				//System.out.println("ArcY: " + arcY);
@@ -268,6 +295,13 @@ public class MainAppController {
 					typeOfArrow.setDisable(false);
 					start.setDisable(false);
 					reset.setDisable(false);
+					
+					System.out.println(xCloud1);
+					if(xCloud1 < -150){
+						xCloud1 = 900;
+						drawing.getCloud1().setTranslateX(900);
+						
+					}
 					
 				}
 			}
