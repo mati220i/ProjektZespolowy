@@ -102,11 +102,41 @@ public class MainAppController {
 			@Override
 			public void handle(long now) {
 				TranslateTransition transition = new TranslateTransition(new Duration(1), drawing.getArrow());
+				TranslateTransition transitionForArcher = new TranslateTransition(new Duration(1), drawing.getArcher());
+				TranslateTransition transitionForCloud1 = new TranslateTransition(new Duration(1), drawing.getCloud1());
+				TranslateTransition transitionForCloud2 = new TranslateTransition(new Duration(1), drawing.getCloud2());
+				TranslateTransition transitionForCloud3 = new TranslateTransition(new Duration(1), drawing.getCloud3());
+				TranslateTransition transitionForGrass1 = new TranslateTransition(new Duration(1), drawing.getGrass1());
+				TranslateTransition transitionForGrass2 = new TranslateTransition(new Duration(1), drawing.getGrass2());
+				TranslateTransition transitionForGrass3 = new TranslateTransition(new Duration(1), drawing.getGrass3());
+				TranslateTransition transitionForGrass4 = new TranslateTransition(new Duration(1), drawing.getGrass4());
+				
+				
 				double nachylenie = incline.getValue();
 				
 				int x = (int) drawing.getArrow().getTranslateX();
 				int y = (int) drawing.getArrow().getTranslateY();
-
+				
+				int xArcher = (int) drawing.getArcher().getTranslateX();
+				int yArcher = (int) drawing.getArcher().getTranslateY();
+				
+				int xCloud1 = (int) drawing.getCloud1().getTranslateX();
+				int yCloud1 = (int) drawing.getCloud1().getTranslateY();
+				int xCloud2 = (int) drawing.getCloud2().getTranslateX();
+				int yCloud2 = (int) drawing.getCloud2().getTranslateY();
+				int xCloud3 = (int) drawing.getCloud3().getTranslateX();
+				int yCloud3 = (int) drawing.getCloud3().getTranslateY();
+				
+				int xGrass1 = (int) drawing.getGrass1().getTranslateX();
+				int yGrass1 = (int) drawing.getGrass1().getTranslateY();
+				int xGrass2 = (int) drawing.getGrass2().getTranslateX();
+				int yGrass2 = (int) drawing.getGrass2().getTranslateY();
+				int xGrass3 = (int) drawing.getGrass3().getTranslateX();
+				int yGrass3 = (int) drawing.getGrass3().getTranslateY();
+				int xGrass4 = (int) drawing.getGrass4().getTranslateX();
+				int yGrass4 = (int) drawing.getGrass4().getTranslateY();
+				
+				
 				Powietrze powietrze = new Powietrze();
 				Strzala strzala = new Strzala(0.01, nachylenie, x, y);
 				Wiatr wiatr = new Wiatr();
@@ -119,23 +149,99 @@ public class MainAppController {
 				
 				double speed = 0.31 + power.getValue() / 100;
 
-				int newX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, speed * 1000); // ostatnim parametrem mozna bedzie sterowac predkoscia strzaly po strzale
-				int newY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, speed );
+				// ostatnim parametrem mozna bedzie sterowac predkoscia strzaly po strzale
+				int newX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, speed * 1000) + x; 
+				int newY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, speed ) + y;
 
+				int newXArcher = xArcher;
+				int newYArcher = yArcher;
 				
+				int newXCloud1 = xCloud1;
+				int newYCloud1 = yCloud1;
+				int newXCloud2 = xCloud2;
+				int newYCloud2 = yCloud2;
+				int newXCloud3 = xCloud3;
+				int newYCloud3 = yCloud3;
+				
+				int newXGrass1 = xGrass1;
+				int newYGrass1 = yGrass1;
+				int newXGrass2 = xGrass2;
+				int newYGrass2 = yGrass2;
+				int newXGrass3 = xGrass3;
+				int newYGrass3 = yGrass3;
+				int newXGrass4 = xGrass4;
+				int newYGrass4 = yGrass4;
+				
+				
+				System.out.println(drawing.getArcher().getLayoutX() + " " + drawing.getArcher().getLayoutX());
+				if(newY < 200) {
+					newXArcher -= 5;
+					newXCloud1 -= 5;
+					newXCloud2 -= 5;
+					newXCloud3 -= 5;
+					newXGrass1 -= 5;
+					newXGrass2 -= 5;
+					newXGrass3 -= 5;
+					newXGrass4 -= 5;
+				}
 				
 
 				transition.setFromX(x);
 				transition.setFromY(y);
-				transition.setToX(x + newX);
-				transition.setToY(y + newY);
+				transition.setToX(newX);
+				transition.setToY(newY);
 				transition.play();
+				
+				transitionForArcher.setFromX(xArcher);
+				transitionForArcher.setFromY(yArcher);
+				transitionForArcher.setToX(newXArcher);
+				transitionForArcher.setToY(newYArcher);
+				transitionForArcher.play();
 
+				transitionForCloud1.setFromX(xCloud1);
+				transitionForCloud1.setFromY(yCloud1);
+				transitionForCloud1.setToX(newXCloud1);
+				transitionForCloud1.setToY(newYCloud1);
+				transitionForCloud1.play();
+				transitionForCloud2.setFromX(xCloud2);
+				transitionForCloud2.setFromY(yCloud2);
+				transitionForCloud2.setToX(newXCloud2);
+				transitionForCloud2.setToY(newYCloud2);
+				transitionForCloud2.play();
+				transitionForCloud3.setFromX(xCloud3);
+				transitionForCloud3.setFromY(yCloud3);
+				transitionForCloud3.setToX(newXCloud3);
+				transitionForCloud3.setToY(newYCloud3);
+				transitionForCloud3.play();
+
+				transitionForGrass1.setFromX(xGrass1);
+				transitionForGrass1.setFromY(yGrass1);
+				transitionForGrass1.setToX(newXGrass1);
+				transitionForGrass1.setToY(newYGrass1);
+				transitionForGrass1.play();
+				transitionForGrass2.setFromX(xGrass2);
+				transitionForGrass2.setFromY(yGrass2);
+				transitionForGrass2.setToX(newXGrass2);
+				transitionForGrass2.setToY(newYGrass2);
+				transitionForGrass2.play();
+				transitionForGrass3.setFromX(xGrass3);
+				transitionForGrass3.setFromY(yGrass3);
+				transitionForGrass3.setToX(newXGrass3);
+				transitionForGrass3.setToY(newYGrass3);
+				transitionForGrass3.play();
+				transitionForGrass4.setFromX(xGrass4);
+				transitionForGrass4.setFromY(yGrass4);
+				transitionForGrass4.setToX(newXGrass4);
+				transitionForGrass4.setToY(newYGrass4);
+				transitionForGrass4.play();
+
+				
+				
 				double arcY = drawing.getArrow().getTranslateY();
 				//System.out.println("ArcY: " + arcY);
 				
 				
-				if((newY+y)<5) {
+				if((newY)<5) {
 					stop();
 					power.setDisable(false);
 					incline.setDisable(false);
@@ -148,7 +254,7 @@ public class MainAppController {
 				}
 				
 				// TODO naprawic ten szit zeby sie zatrzymywalo do dolu lucznika
-				if((newY+y)>arcY){
+				if((newY)>arcY){
 					stop();
 					drawing.getArrow().setTranslateX(70);
 					System.out.println("szit: " + arcY);
