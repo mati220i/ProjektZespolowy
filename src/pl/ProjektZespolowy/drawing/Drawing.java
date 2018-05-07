@@ -1,5 +1,8 @@
 package pl.ProjektZespolowy.drawing;
 
+import java.io.IOException;
+
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -47,6 +50,20 @@ public class Drawing {
 		buildArc();
 		buildCloud();
 		buildGrass();
+	}
+	
+	public void removeScene() {
+		pane.getChildren().remove(archer);
+		pane.getChildren().remove(arc);
+		
+		pane.getChildren().remove(cloud1);
+		pane.getChildren().remove(cloud2);
+		pane.getChildren().remove(cloud3);
+		
+		pane.getChildren().remove(grass1);
+		pane.getChildren().remove(grass2);
+		pane.getChildren().remove(grass3);
+		pane.getChildren().remove(grass4);
 	}
 	
 	private void buildCloud() {

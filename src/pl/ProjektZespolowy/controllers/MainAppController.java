@@ -1,5 +1,7 @@
 package pl.ProjektZespolowy.controllers;
 
+import java.io.IOException;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -153,7 +155,7 @@ public class MainAppController {
 				powietrze.setGestoscPowietrza(airDensity.getValue());
 				wiatr.setSilaWiatru(wind.getValue());
 
-				
+				System.out.println("xCloud1 po inicjowaniu: " + xCloud1);
 				double speed = 0.31 + power.getValue() / 100;
 
 				// ostatnim parametrem mozna bedzie sterowac predkoscia strzaly po strzale
@@ -186,7 +188,7 @@ public class MainAppController {
 				int newXArcString = xArcString;
 				int newYArcString = yArcString;
 				
-				
+				System.out.println("xCloud1 po nadpisaniu: " + xCloud1);
 				if(newY < 200) {
 					newXArcher -= nextX;
 					newXCloud1 -= nextX;
@@ -198,8 +200,33 @@ public class MainAppController {
 					newXGrass4 -= nextX;
 					newXArcArm -= nextX;
 					newXArcString -= nextX;
-					
 				}
+				System.out.println("xCloud1 po zmianie polozenia: " + xCloud1);
+				
+				if(xCloud1 < -170){
+					newXCloud1 += 930;
+				}
+				if(xCloud2 < -170){
+					newXCloud2 += 940;
+				}
+				if(xCloud3 < -170){
+					newXCloud3 += 940;
+				}
+				
+				if(xGrass1 < -170){
+					newXGrass1 += 950;
+				}
+				if(xGrass2 < -170){
+					newXGrass2 += 950;
+				}
+				if(xGrass3 < -170){
+					newXGrass3 += 950;
+				}
+				if(xGrass4 < -170){
+					newXGrass4 += 950;
+				}
+				
+				System.out.println("xCloud1 po zmianie " + xCloud1 + "\n-----------------------------------------------------------------------------");
 				
 				
 
@@ -264,11 +291,12 @@ public class MainAppController {
 				transitionForArcString.play();
 
 				
+				
 				double arcY = drawing.getArrow().getTranslateY();
 				//System.out.println("ArcY: " + arcY);
 				
 				
-				if((newY)<5) {
+				if((newY)<-250) {
 					stop();
 					power.setDisable(false);
 					incline.setDisable(false);
@@ -296,14 +324,10 @@ public class MainAppController {
 					start.setDisable(false);
 					reset.setDisable(false);
 					
-					System.out.println(xCloud1);
-					if(xCloud1 < -150){
-						xCloud1 = 900;
-						drawing.getCloud1().setTranslateX(900);
-						
-					}
+					
 					
 				}
+				
 			}
 		}.start();
 
@@ -317,9 +341,8 @@ public class MainAppController {
 		airDensity.setValue(2);
 		archerPosition.setValue(80);
 		
-		drawing.changeArcIncline(0, (int) power.getValue());
-		drawing.changeArcherPosition(50, 530);
-		
+		drawing.removeScene();
+		drawing.buildScene();
 	}
 	
 	@FXML
