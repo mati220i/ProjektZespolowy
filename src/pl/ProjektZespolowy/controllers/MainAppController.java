@@ -41,6 +41,8 @@ public class MainAppController {
 
 	private Drawing drawing = new Drawing();
 
+	private int i = 0, quantity = 1, tempArrowY = 0;
+	
 	@FXML
 	public void initialize() {
 		wind.setMin(-100);
@@ -103,6 +105,11 @@ public class MainAppController {
 
 			@Override
 			public void handle(long now) {
+				double moc = power.getValue() / 100;
+				double nachylenie = incline.getValue();
+				
+				
+				
 				TranslateTransition transition = new TranslateTransition(new Duration(1), drawing.getArrow());
 				TranslateTransition transitionForArcher = new TranslateTransition(new Duration(1), drawing.getArcher());
 				TranslateTransition transitionForCloud1 = new TranslateTransition(new Duration(1), drawing.getCloud1());
@@ -114,12 +121,16 @@ public class MainAppController {
 				TranslateTransition transitionForGrass4 = new TranslateTransition(new Duration(1), drawing.getGrass4());
 				TranslateTransition transitionForArcArm = new TranslateTransition(new Duration(1), drawing.getArc().getArm());
 				TranslateTransition transitionForArcString = new TranslateTransition(new Duration(1), drawing.getArc().getString());
+				TranslateTransition transitionForTree = new TranslateTransition(new Duration(1), drawing.getTree());
+				TranslateTransition transitionForDog = new TranslateTransition(new Duration(1), drawing.getDog());
 				
 				
-				double nachylenie = incline.getValue();
 				
 				int x = (int) drawing.getArrow().getTranslateX();
 				int y = (int) drawing.getArrow().getTranslateY();
+				
+				// tymczasowa wartosc y strzaly, ktora nie jest tracona pomimo zatrzymania (centrowania) kamery na srodku ekranu
+				tempArrowY = y;
 				
 				int xArcher = (int) drawing.getArcher().getTranslateX();
 				int yArcher = (int) drawing.getArcher().getTranslateY();
@@ -145,9 +156,17 @@ public class MainAppController {
 				int xArcString = (int) drawing.getArc().getString().getTranslateX();
 				int yArcString = (int) drawing.getArc().getString().getTranslateY();
 				
+				int xTree = (int) drawing.getTree().getTranslateX();
+				int yTree = (int) drawing.getTree().getTranslateY();
+				int xDog = (int) drawing.getDog().getTranslateX();
+				int yDog = (int) drawing.getDog().getTranslateY();
+				
 				
 				Powietrze powietrze = new Powietrze();
-				Strzala strzala = new Strzala(0.01, nachylenie, x, y);
+				Strzala strzala = new Strzala(moc, nachylenie, x, y);
+				// obiekt drugiej "strzaly" potrzebny do poruszania tlem, strzala oryginalna zatrzymuje sie na srodku ekranu (centrowanie)
+				Strzala strzala2 = new Strzala(moc, nachylenie, x, tempArrowY);
+				
 				Wiatr wiatr = new Wiatr();
 				
 				Wzory wzory = new Wzory();
@@ -155,14 +174,26 @@ public class MainAppController {
 				powietrze.setGestoscPowietrza(airDensity.getValue());
 				wiatr.setSilaWiatru(wind.getValue());
 
-				System.out.println("xCloud1 po inicjowaniu: " + xCloud1);
-				double speed = 0.31 + power.getValue() / 100;
-
+				double speed = 100;//0.31 + power.getValue() / 100;
+				i++;
 				// ostatnim parametrem mozna bedzie sterowac predkoscia strzaly po strzale
-				int nextX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, speed * 1000);
-				int nextY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, speed );
+				
+				
+				int nextX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, i);
+				int nextY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, i/10);
+				
 				int newX = nextX + x; 
 				int newY = nextY + y;
+				
+				// dane potrzebne do przesuwania tlem, osobne, powniewaz oryginalna strzala zatrzymuje sie w centrum (centrowanie)
+				int nextY2 = (int) wzory.otrzymajDrogeY(strzala2, powietrze, wiatr, i/10);
+				int newY2 = nextY2 + tempArrowY;
+				
+				
+				// tymczasowe do naprawienia fizyki, powoduje sztuczne opadanie strzaly po jakims czasie
+				if(newY <= -100) {
+					newY += 5 - nextY;
+				}
 				
 				int newXArcher = xArcher;
 				int newYArcher = yArcher;
@@ -188,8 +219,13 @@ public class MainAppController {
 				int newXArcString = xArcString;
 				int newYArcString = yArcString;
 				
-				System.out.println("xCloud1 po nadpisaniu: " + xCloud1);
-				if(newY < 200) {
+				int newXTree = xTree;
+				int newYTree = yTree;
+				int newXDog = xDog;
+				int newYDog = yDog;
+				
+				// kolejne pozycje do przesuniecia tla
+				if(newY2 < 200) {
 					newXArcher -= nextX;
 					newXCloud1 -= nextX;
 					newXCloud2 -= nextX;
@@ -200,9 +236,18 @@ public class MainAppController {
 					newXGrass4 -= nextX;
 					newXArcArm -= nextX;
 					newXArcString -= nextX;
+					newXTree -= nextX;
+					newXDog -= nextX;
 				}
-				System.out.println("xCloud1 po zmianie polozenia: " + xCloud1);
+
+				// po 4 przewinietych drzewach pojawia sie srajacy pies za drzewem, taki acziwment :D 
+				if(quantity == 4)
+					drawing.getDog().setVisible(true);
+				else
+					drawing.getDog().setVisible(false);
 				
+				
+				// po schowaniu sie obiektow z lewej strony ekranu sa przewijane spowrotem na prawo
 				if(xCloud1 < -170){
 					newXCloud1 += 930;
 				}
@@ -226,10 +271,22 @@ public class MainAppController {
 					newXGrass4 += 950;
 				}
 				
-				System.out.println("xCloud1 po zmianie " + xCloud1 + "\n-----------------------------------------------------------------------------");
+				if(xTree < -420){
+					newXTree += 1150;
+					quantity++;
+				}
+				if(xDog < -420){
+					newXDog += 1150;
+				}
 				
+				// po osiagnieciu srodka ekranu strzala nie leci dalej w bok (centrowanie)
+				if(drawing.getArrow().getTranslateX() >= 0) {
+					newX = 0;
+				}
 				
-
+				// zmiana pozycja znacznika
+				drawing.moveMarker(x+340, 0);
+								
 				transition.setFromX(x);
 				transition.setFromY(y);
 				transition.setToX(newX);
@@ -290,12 +347,20 @@ public class MainAppController {
 				transitionForArcString.setToY(newYArcString);
 				transitionForArcString.play();
 
+				transitionForTree.setFromX(xTree);
+				transitionForTree.setFromY(yTree);
+				transitionForTree.setToX(newXTree);
+				transitionForTree.setToY(newYTree);
+				transitionForTree.play();
+				transitionForDog.setFromX(xDog);
+				transitionForDog.setFromY(yDog);
+				transitionForDog.setToX(newXDog);
+				transitionForDog.setToY(newYDog);
+				transitionForDog.play();
+
 				
 				
-				double arcY = drawing.getArrow().getTranslateY();
-				//System.out.println("ArcY: " + arcY);
-				
-				
+				/*
 				if((newY)<-250) {
 					stop();
 					power.setDisable(false);
@@ -306,14 +371,13 @@ public class MainAppController {
 					typeOfArrow.setDisable(false);
 					start.setDisable(false);
 					reset.setDisable(false);
-				}
+				}*/
+				
 				
 				// TODO naprawic ten szit zeby sie zatrzymywalo do dolu lucznika
-				if((newY)>arcY){
+				// tymczasowo zatrzymuje sie w losowym miejscu na ziemi ale dzia³a :D
+				if((newY)> 450){
 					stop();
-					drawing.getArrow().setTranslateX(70);
-					System.out.println("szit: " + arcY);
-					drawing.getArrow().setTranslateY(arcY);
 					
 					power.setDisable(false);
 					incline.setDisable(false);

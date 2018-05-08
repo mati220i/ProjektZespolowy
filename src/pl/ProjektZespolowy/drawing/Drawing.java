@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -28,7 +29,11 @@ public class Drawing {
 	private ImageView grass2 = new ImageView("/pl/ProjektZespolowy/resources/grass.png");
 	private ImageView grass3 = new ImageView("/pl/ProjektZespolowy/resources/grass.png");
 	private ImageView grass4 = new ImageView("/pl/ProjektZespolowy/resources/grass.png");
+	private ImageView dog = new ImageView("/pl/ProjektZespolowy/resources/akcjakupa.png");
+	private ImageView tree = new ImageView("/pl/ProjektZespolowy/resources/drzewo2.png");
 	private Arc arc;
+	
+	private Polygon marker = new Polygon(90, 30, 105, 10, 120, 30);
 	
 	public Drawing() {
 		
@@ -45,11 +50,13 @@ public class Drawing {
 		Rectangle sky = new Rectangle(0, 11, 900, 459);
 		sky.setFill(Color.LIGHTBLUE);
 		
-		pane.getChildren().addAll(frame, ground, sky);
+		pane.getChildren().addAll(frame, ground, sky, marker);
 		buildArcher();
 		buildArc();
 		buildCloud();
 		buildGrass();
+		buildDog();
+		buildTree();
 	}
 	
 	public void removeScene() {
@@ -64,6 +71,34 @@ public class Drawing {
 		pane.getChildren().remove(grass2);
 		pane.getChildren().remove(grass3);
 		pane.getChildren().remove(grass4);
+		
+		pane.getChildren().remove(dog);
+		
+		pane.getChildren().remove(tree);
+		
+		pane.getChildren().remove(marker);
+	}
+	
+	private void buildDog() {
+		dog.setTranslateX(225);
+		dog.setTranslateY(270);
+		
+		dog.setScaleX(0.25);
+		dog.setScaleY(0.25);
+		
+		dog.setVisible(false);
+		
+		pane.getChildren().add(dog);
+	}
+	
+	private void buildTree() {
+		tree.setTranslateX(230);
+		tree.setTranslateY(-60);
+		
+		tree.setScaleX(0.5);
+		tree.setScaleY(0.5);
+		
+		pane.getChildren().add(tree);
 	}
 	
 	private void buildCloud() {
@@ -192,6 +227,11 @@ public class Drawing {
 		
 	}
 	
+	public void moveMarker(int x, int y) {
+		marker.setTranslateX(x);
+		marker.setTranslateY(y);
+	}
+	
 	
 	    
 	public ImageView getCloud1() {
@@ -254,4 +294,13 @@ public class Drawing {
 		arc.setArrow(arrow);
 	}
 
+	public ImageView getDog() {
+		return dog;
+	}
+
+	public ImageView getTree() {
+		return tree;
+	}
+
+	
 }
