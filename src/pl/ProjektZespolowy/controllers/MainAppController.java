@@ -1,27 +1,25 @@
 package pl.ProjektZespolowy.controllers;
 
-import java.io.IOException;
-
 import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import pl.ProjektZespolowy.drawing.Drawing;
-import pl.ProjektZespolowy.jPhysic.*;
+import pl.ProjektZespolowy.jPhysic.Powietrze;
+import pl.ProjektZespolowy.jPhysic.Strzala;
+import pl.ProjektZespolowy.jPhysic.Wiatr;
+import pl.ProjektZespolowy.jPhysic.Wzory;
 
 public class MainAppController {
 	@FXML
@@ -96,10 +94,9 @@ public class MainAppController {
 		typeOfArrow.setDisable(true);
 		start.setDisable(true);
 		//reset.setDisable(true);
-		
-		
+		System.out.println("--------------------");
 		new AnimationTimer() {
-
+			
 			@Override
 			public void handle(long now) {
 				double moc = power.getValue() / 100;
@@ -160,22 +157,28 @@ public class MainAppController {
 				
 				
 				Powietrze powietrze = new Powietrze();
-				//Dodalem na sztywno strzale normalnÄ… trzeba poprawiÄ‡ na wybor z listy !!!!!!!!!!!!!
-				Strzala strzala = new Strzala(moc, nachylenie, x, y, Groty.NORMALNA);
+				Strzala strzala = new Strzala(moc, nachylenie, x, y);
+				
+				
+				
+				
 				// obiekt drugiej "strzaly" potrzebny do poruszania tlem, strzala oryginalna zatrzymuje sie na srodku ekranu (centrowanie)
-				Strzala strzala2 = new Strzala(moc, nachylenie, x, tempArrowY, Groty.NORMALNA);
+				Strzala strzala2 = new Strzala(moc, nachylenie, x, tempArrowY);
 				
 				Wiatr wiatr = new Wiatr();
 				
 				Wzory wzory = new Wzory();
-
+				
 				powietrze.setGestoscPowietrza(airDensity.getValue());
 				wiatr.setSilaWiatru(wind.getValue());
 
-				double speed = 100;//0.31 + power.getValue() / 100;
+				//double speed = 100;//0.31 + power.getValue() / 100;
 				i++;
-				// ostatnim parametrem mozna bedzie sterowac predkoscia strzaly po strzale
 				
+				int nachylenie2 = (int) wzory.otrzymajNachylenie(strzala, powietrze, wiatr);
+				// to ma podobno zmieniac nachylenie ale jest cos spierdolone i nie dziala
+				drawing.changeArrowIncline(nachylenie2, (int) power.getValue(), x, y);
+						
 				
 				int nextX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, i);
 				int nextY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, i/10);
@@ -192,6 +195,8 @@ public class MainAppController {
 				if(newY <= -100) {
 					newY += 5 - nextY;
 				}
+				
+				drawing.getDistance().setText("Odleg³oœæ: " + nextX + " m");
 				
 				int newXArcher = xArcher;
 				int newYArcher = yArcher;
@@ -239,9 +244,10 @@ public class MainAppController {
 				}
 
 				// po 4 przewinietych drzewach pojawia sie srajacy pies za drzewem, taki acziwment :D 
-				if(quantity == 4)
+				if(quantity == 4) {
 					drawing.getDog().setVisible(true);
-				else
+					drawing.buildAchievement();
+				} else
 					drawing.getDog().setVisible(false);
 				
 				
@@ -373,7 +379,7 @@ public class MainAppController {
 				
 				
 				// TODO naprawic ten szit zeby sie zatrzymywalo do dolu lucznika
-				// tymczasowo zatrzymuje sie w losowym miejscu na ziemi ale dziaï¿½a :D
+				// tymczasowo zatrzymuje sie w losowym miejscu na ziemi ale dzia³a :D
 				if((newY)> 450){
 					stop();
 					
@@ -407,11 +413,6 @@ public class MainAppController {
 		drawing.buildScene();
 	}
 	
-	@FXML
-	public void change() throws InterruptedException {
-		
-	}
-
 	@FXML
 	public void changePosition() {
 		double position = archerPosition.getValue();
