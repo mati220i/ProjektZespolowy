@@ -7,19 +7,19 @@ import java.lang.Math;
  */
 public class Strzala {
 	/**
-	 * masa strza�y w kg (0.0324 waga strza�y testowej 500 gr )
+	 * masa strzały w kg (0.0324 waga strzały testowej 500 gr )
 	 */
     private final double masa;
     /**
-     * predkosc strza�y w m/s (maks 100m/s)
+     * predkosc strzały w m/s (maks 100m/s)
      */
     private double predkoscStrzaly;
     /**
-     * nachylenie strza�y wzgl�dem poziomu w prawa strone 0-359 stopni
+     * nachylenie strzay względem poziomu w prawa strone 0-359 stopni
      */
     private double nachylenie;
     /**
-     * powierzchnia czolowa strza�y
+     * powierzchnia czolowa strzały
      */
     private final double powierzchniaCzolowa;
     /**
@@ -27,35 +27,36 @@ public class Strzala {
      */
     private final double powierzchniaBoczna;
     /**
-     * opor strza�y
+     * opor strzały
      */
     private final double oporStrzaly;
     /**
-     * pozycja czubka strza�y X
+     * pozycja czubka strzały X
      */
     private double pozycjaX;
     /**
-     * pozycja czubka strza�y Y
+     * pozycja czubka strzały Y
      */
     private double pozychaY;
 
     /**
-     * Konstruktor strzaly z jej wszystkimi danymi
-     * @param predkosc -  pr�dko�� strza�y
-     * @param nachylenie - nachylenie wzgl�dem poziomu
-     * @param x - wsp�rz�dna X w uk�adzie
-     * @param y - wsp�rz�dna Y w uk�adzie
+     * Konstruktor podstawowy dla strzały normalnej strzaly z jej wszystkimi danymi
+     * @param predkosc -  prędkość strzały
+     * @param nachylenie - nachylenie względem poziomu
+     * @param x - współrzędna X w układzie
+     * @param y - współrzędna Y w układzie
      */
-    public Strzala(double predkosc, double nachylenie, double x, double y) {
-    	this.masa = 0.0324;
+    public Strzala(double predkosc, double nachylenie, double x, double y, Groty groty) {
+        this.masa = groty.getWaga();
         this.predkoscStrzaly = predkosc;
         this.nachylenie = nachylenie;
-        this.powierzchniaCzolowa = 0.0133;
-        this.powierzchniaBoczna = 0.0195;
-        this.oporStrzaly = 0.1;
+        this.powierzchniaCzolowa = groty.getPowCzolowa();
+        this.powierzchniaBoczna = groty.getPowBoczna();
+        this.oporStrzaly = groty.getOporOgolny();
         this.pozycjaX = x;
         this.pozychaY = y;
     }
+
     public double getPredkoscX(){
         return getPredkoscStrzaly() * Math.cos(Math.toRadians(getNachylenie()));
     }

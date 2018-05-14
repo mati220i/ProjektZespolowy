@@ -4,7 +4,7 @@ package pl.ProjektZespolowy.jPhysic;
  */
 public class Powietrze {
 	/**
-	 * gestosc powietrza w kg.m^3
+	 * gestosc powietrza w kg.m^3 domyślnie 1.22
 	 */
     private double gestoscPowietrza = 1.22;
 
