@@ -81,7 +81,7 @@ public class Wzory {
      * @param wiatr - obiekt wiatru
      * @return zwraca kat w double 
      */
-    private double otrzymajNachylenie(Strzala strzala,Powietrze powietrze, Wiatr wiatr) {
+    public double otrzymajNachylenie(Strzala strzala,Powietrze powietrze, Wiatr wiatr) {
     	double a = silaWiatru(strzala, powietrze, wiatr);
     	double c = silaWypadkowa(strzala, powietrze, wiatr);
     	double b = silaOporuPowietrza(strzala, powietrze);

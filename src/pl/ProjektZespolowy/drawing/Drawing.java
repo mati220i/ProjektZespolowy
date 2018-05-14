@@ -1,10 +1,7 @@
 package pl.ProjektZespolowy.drawing;
 
-import java.io.IOException;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -12,6 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Drawing {
@@ -32,6 +32,7 @@ public class Drawing {
 	private ImageView dog = new ImageView("/pl/ProjektZespolowy/resources/akcjakupa.png");
 	private ImageView tree = new ImageView("/pl/ProjektZespolowy/resources/drzewo2.png");
 	private Arc arc;
+	private Label distance, achievement;
 	
 	private Polygon marker = new Polygon(90, 30, 105, 10, 120, 30);
 	
@@ -57,6 +58,7 @@ public class Drawing {
 		buildGrass();
 		buildDog();
 		buildTree();
+		buildDistanceLabel();
 	}
 	
 	public void removeScene() {
@@ -76,7 +78,35 @@ public class Drawing {
 		
 		pane.getChildren().remove(tree);
 		
+		pane.getChildren().remove(distance);
+		
+		pane.getChildren().remove(achievement);
+		
 		pane.getChildren().remove(marker);
+	}
+	
+	public void buildAchievement() {
+		achievement = new Label("Odblokowano Acziwment");
+		achievement.setTranslateX(150);
+		achievement.setTranslateY(300);
+		achievement.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 50));
+		achievement.setTextFill(Color.RED);
+		
+		pane.getChildren().add(achievement);
+	}
+	
+	public void removeAchievement() {
+		pane.getChildren().remove(achievement);
+	}
+	
+	private void buildDistanceLabel() {
+		distance = new Label("Odleg³oœæ: 0 m");
+		distance.setTranslateX(20);
+		distance.setTranslateY(30);
+		distance.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 24));
+		distance.setTextFill(Color.RED);
+		
+		pane.getChildren().add(distance);
 	}
 	
 	private void buildDog() {
@@ -260,6 +290,10 @@ public class Drawing {
 
 	public ImageView getGrass4() {
 		return grass4;
+	}
+
+	public Label getDistance() {
+		return distance;
 	}
 
 	public void setPrimaryStage(Stage primaryStage) {
