@@ -100,7 +100,7 @@ public class Drawing {
 	}
 	
 	private void buildDistanceLabel() {
-		distance = new Label("Odleg³oœæ: 0 m");
+		distance = new Label("OdlegÅ‚oÅ›Ä‡: 0 m");
 		distance.setTranslateX(20);
 		distance.setTranslateY(30);
 		distance.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 24));

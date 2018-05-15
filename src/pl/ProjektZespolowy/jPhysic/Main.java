@@ -20,7 +20,7 @@ public class Main {
 
 
 
-		/*
+		
 
         System.out.println("Strzała NORMALNA");
 		for(int i = 1; i < 101; ){
@@ -51,7 +51,7 @@ public class Main {
                     );
             i+=10;
         }
-        */
+        
 	}
 	
 }

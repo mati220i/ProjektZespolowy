@@ -160,8 +160,7 @@ public class MainAppController {
 				
 				
 				// obiekt drugiej "strzaly" potrzebny do poruszania tlem, strzala oryginalna zatrzymuje sie na srodku ekranu (centrowanie)
-				Strzala strzala2 = new Strzala(moc, nachylenie, x, tempArrowY, Groty.NORMALNA
-				);
+				Strzala strzala2 = new Strzala(moc, nachylenie, x, tempArrowY, Groty.NORMALNA);
 				
 				Wiatr wiatr = new Wiatr();
 				
@@ -193,8 +192,8 @@ public class MainAppController {
 				if(newY <= -100) {
 					newY += 5 - nextY;
 				}
-				
-				drawing.getDistance().setText("Odleg�o��: " + nextX + " m");
+				System.out.println("nextX: " + nextX + " nextY: " + nextY);
+				drawing.getDistance().setText("Odległość: " + nextX + " m");
 				
 				int newXArcher = xArcher;
 				int newYArcher = yArcher;
@@ -377,7 +376,7 @@ public class MainAppController {
 				
 				
 				// TODO naprawic ten szit zeby sie zatrzymywalo do dolu lucznika
-				// tymczasowo zatrzymuje sie w losowym miejscu na ziemi ale dzia�a :D
+				// tymczasowo zatrzymuje sie w losowym miejscu na ziemi ale dziaï¿½a :D
 				if((newY)> 450){
 					stop();
 					
