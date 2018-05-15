@@ -16,10 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import pl.ProjektZespolowy.drawing.Drawing;
-import pl.ProjektZespolowy.jPhysic.Powietrze;
-import pl.ProjektZespolowy.jPhysic.Strzala;
-import pl.ProjektZespolowy.jPhysic.Wiatr;
-import pl.ProjektZespolowy.jPhysic.Wzory;
+import pl.ProjektZespolowy.jPhysic.*;
 
 public class MainAppController {
 	@FXML
@@ -157,13 +154,14 @@ public class MainAppController {
 				
 				
 				Powietrze powietrze = new Powietrze();
-				Strzala strzala = new Strzala(moc, nachylenie, x, y);
+				Strzala strzala = new Strzala(moc, nachylenie, x, y, Groty.NORMALNA);
 				
 				
 				
 				
 				// obiekt drugiej "strzaly" potrzebny do poruszania tlem, strzala oryginalna zatrzymuje sie na srodku ekranu (centrowanie)
-				Strzala strzala2 = new Strzala(moc, nachylenie, x, tempArrowY);
+				Strzala strzala2 = new Strzala(moc, nachylenie, x, tempArrowY, Groty.NORMALNA
+				);
 				
 				Wiatr wiatr = new Wiatr();
 				
@@ -196,7 +194,7 @@ public class MainAppController {
 					newY += 5 - nextY;
 				}
 				
-				drawing.getDistance().setText("Odleg³oœæ: " + nextX + " m");
+				drawing.getDistance().setText("Odlegï¿½oï¿½ï¿½: " + nextX + " m");
 				
 				int newXArcher = xArcher;
 				int newYArcher = yArcher;
@@ -379,7 +377,7 @@ public class MainAppController {
 				
 				
 				// TODO naprawic ten szit zeby sie zatrzymywalo do dolu lucznika
-				// tymczasowo zatrzymuje sie w losowym miejscu na ziemi ale dzia³a :D
+				// tymczasowo zatrzymuje sie w losowym miejscu na ziemi ale dziaï¿½a :D
 				if((newY)> 450){
 					stop();
 					
