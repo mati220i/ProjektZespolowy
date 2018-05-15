@@ -186,6 +186,7 @@ public class MainAppController {
 				int newX = nextX + x; 
 				int newY = nextY + y;
 				
+				
 				// dane potrzebne do przesuwania tlem, osobne, powniewaz oryginalna strzala zatrzymuje sie w centrum (centrowanie)
 				int nextY2 = (int) wzory.otrzymajDrogeY(strzala2, powietrze, wiatr, i/10);
 				int newY2 = nextY2 + tempArrowY;
