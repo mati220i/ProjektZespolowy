@@ -6,7 +6,7 @@ public class Main {
 		Strzala strzala = new Strzala(100 ,30, 0, 0, Groty.NORMALNA);
 		Powietrze powietrze = new Powietrze();
 		Wiatr wiatr = new Wiatr();
-
+		
         wiatr.setSilaWiatru(0);
 
         Wzory wzory = new Wzory();

@@ -123,4 +123,14 @@ public class Strzala {
     public void setPozycjaY(double pozycjaY) {
         this.pozycjaY = pozycjaY;
     }
+
+	@Override
+	public String toString() {
+		return "Strzala [masa=" + masa + ", predkoscX=" + predkoscX + ", predkoscY=" + predkoscY + ", nachylenie="
+				+ nachylenie + ", powierzchniaCzolowa=" + powierzchniaCzolowa + ", powierzchniaBoczna="
+				+ powierzchniaBoczna + ", oporStrzaly=" + oporStrzaly + ", pozycjaX=" + pozycjaX + ", pozycjaY="
+				+ pozycjaY + "]";
+	}
+    
+    
 }
