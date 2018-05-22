@@ -1,4 +1,4 @@
-package pl.ProjektZespolowy.jPhysic;
+package pl.ProjektZespolowy.oldjPhysic;
 
 public enum Groty {
     NORMALNA(0.0324 , 0.0133, 0.0195, 1),

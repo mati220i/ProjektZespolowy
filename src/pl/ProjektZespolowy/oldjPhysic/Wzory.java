@@ -1,4 +1,4 @@
-package pl.ProjektZespolowy.jPhysic;
+package pl.ProjektZespolowy.oldjPhysic;
 
 import static java.lang.Math.*;
 /**
@@ -42,11 +42,12 @@ public class Wzory {
      * @return zwraca wartosc sily oddzialywania wiatru w double w double
      */
 	public double silaWiatru(Strzala strzala,Powietrze powietrze, Wiatr wiatr) {
-    	
+    	if(wiatr.getSilaWiatru()==0)
+    		return 0.0;
         return ( 0.5 * powietrze.getGestoscPowietrza() *
         		( strzala.getPowierzchniaCzolowa() + sin(strzala.getNachylenie()) *
         		strzala.getPowierzchniaBoczna() ) *
-        		pow( (strzala.getPredkoscX() - wiatr.getSilaWiatru()),2) );
+        		pow( (strzala.getPredkoscX() + wiatr.getSilaWiatru()),2) );
     }
 
     /**
@@ -69,9 +70,9 @@ public class Wzory {
     		kierunekWiatru = 180;
     	}
     	
-    	katMiedzySilami = abs( getPrzeciwleglyKat(strzala.getNachylenie()) - kierunekWiatru );
+    	katMiedzySilami = getPrzeciwleglyKat(strzala.getNachylenie()) - kierunekWiatru ;
     	
-    	return sqrt( pow( ( f1 + f2 * cos( katMiedzySilami ) ) , 2) + pow( ( f2 * sin( katMiedzySilami ) ) , 2) );
+    	return sqrt( pow( ( f1 + f2 * cos( toRadians(katMiedzySilami) ) ) , 2) + pow( ( f2 * sin( toRadians(katMiedzySilami) ) ) , 2) );
     }
     
     /**
@@ -85,9 +86,16 @@ public class Wzory {
     	double a = silaWiatru(strzala, powietrze, wiatr);
     	double c = silaWypadkowa(strzala, powietrze, wiatr);
     	double b = silaOporuPowietrza(strzala, powietrze);
-    	double tmpNachylenie = acos( ( pow( c , 2 ) - ( pow( a , 2 ) + ( pow( b , 2 ) )) )/( -2 * a * b)  );
-    	strzala.setNachylenie(tmpNachylenie);
-        return tmpNachylenie;
+    	double tmp1 = pow( a , 2 ) + pow( b , 2 ) - pow( c , 2 );
+    	double tmp2 = -2*a*b;
+    	double tmp3 = tmp2/tmp1;
+    	double tmpNachylenie = toRadians(cos(tmp3));
+    	if(tmpNachylenie<360 || tmpNachylenie>0){
+            strzala.setNachylenie(tmpNachylenie);
+            return tmpNachylenie;
+        }
+        else
+            return toDegrees(strzala.getNachylenie());
     }
     
     /**

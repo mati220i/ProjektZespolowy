@@ -16,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import pl.ProjektZespolowy.drawing.Drawing;
-import pl.ProjektZespolowy.jPhysic.*;
+import pl.ProjektZespolowy.jPhysics.*;
 
 public class MainAppController {
 	@FXML
@@ -171,20 +171,26 @@ public class MainAppController {
 
 				//double speed = 100;//0.31 + power.getValue() / 100;
 				i++;
-				
-				int nachylenie2 = (int) wzory.otrzymajNachylenie(strzala, powietrze, wiatr);
+				//TODO zamieniłem na nowe funkcje,stare w komentarzach jest nowa działajaca fizyka, tylko że nie działa ..... sprawdzone w jPhisics main działa okej
+                int nachylenie2 = (int) strzala.getNachylenie();
+//				int nachylenie2 = (int) wzory.otrzymajNachylenie(strzala, powietrze, wiatr);
 				// to ma podobno zmieniac nachylenie ale jest cos spierdolone i nie dziala
 				drawing.changeArrowIncline(nachylenie2, (int) power.getValue(), x, y);
-						
-				
-				int nextX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, i);
-				int nextY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, i/10);
+
+
+				double[] newPosition = wzory.nowapozycja(strzala,powietrze,wiatr,0.01);
+
+                int nextX = (int) newPosition[0];
+				int nextY = (int) newPosition[1];
+//				int nextX = (int) wzory.otrzymajDrogeX(strzala, powietrze, wiatr, i);
+//				int nextY = (int) wzory.otrzymajDrogeY(strzala, powietrze, wiatr, i/10);
 				
 				int newX = nextX + x; 
 				int newY = nextY + y;
 				
 				// dane potrzebne do przesuwania tlem, osobne, powniewaz oryginalna strzala zatrzymuje sie w centrum (centrowanie)
-				int nextY2 = (int) wzory.otrzymajDrogeY(strzala2, powietrze, wiatr, i/10);
+                int nextY2 = (int) newPosition[1];
+//				int nextY2 = (int) wzory.otrzymajDrogeY(strzala2, powietrze, wiatr, i/10);
 				int newY2 = nextY2 + tempArrowY;
 				
 				
