@@ -20,7 +20,6 @@ public class Drawing {
 	private Scene primaryScene;
 	private AnchorPane pane;
 	
-	//private Archer archer;
 	private ImageView archer = new ImageView("/pl/ProjektZespolowy/resources/archer.png");
 	private ImageView cloud1 = new ImageView("/pl/ProjektZespolowy/resources/cloud.png");
 	private ImageView cloud2 = new ImageView("/pl/ProjektZespolowy/resources/cloud.png");
@@ -29,8 +28,10 @@ public class Drawing {
 	private ImageView grass2 = new ImageView("/pl/ProjektZespolowy/resources/grass.png");
 	private ImageView grass3 = new ImageView("/pl/ProjektZespolowy/resources/grass.png");
 	private ImageView grass4 = new ImageView("/pl/ProjektZespolowy/resources/grass.png");
-	private ImageView dog = new ImageView("/pl/ProjektZespolowy/resources/akcjakupa.png");
+	private ImageView dog = new ImageView("/pl/ProjektZespolowy/resources/akcja.png");
 	private ImageView tree = new ImageView("/pl/ProjektZespolowy/resources/drzewo2.png");
+	private ImageView bag = new ImageView("/pl/ProjektZespolowy/resources/plus.png");
+	private ImageView bleeding = new ImageView("/pl/ProjektZespolowy/resources/bleeding.png");
 	private Arc arc;
 	private Label distance, achievement;
 	
@@ -41,24 +42,26 @@ public class Drawing {
 	}
 	
 	public void buildScene() {
-		Rectangle frame = new Rectangle(0, 10, 900, 580);
+		Rectangle frame = new Rectangle(0, 0, 900, 580);
 		frame.setFill(Color.WHITE);
 		frame.setStroke(Color.BLACK);
 		
 		Rectangle ground = new Rectangle(0, 450, 900, 140);
 		ground.setFill(Color.GREEN);
 		
-		Rectangle sky = new Rectangle(0, 11, 900, 459);
+		Rectangle sky = new Rectangle(0, 1, 900, 459);
 		sky.setFill(Color.LIGHTBLUE);
 		
 		pane.getChildren().addAll(frame, ground, sky, marker);
-		buildArcher();
-		buildArc();
 		buildCloud();
 		buildGrass();
 		buildDog();
 		buildTree();
 		buildDistanceLabel();
+		buildAchievement2();
+		buildArcher();
+		buildBleeding();
+		buildArc();
 	}
 	
 	public void removeScene() {
@@ -83,11 +86,35 @@ public class Drawing {
 		pane.getChildren().remove(achievement);
 		
 		pane.getChildren().remove(marker);
+		
+		pane.getChildren().remove(bag);
+		
+		pane.getChildren().remove(bleeding);
 	}
 	
 	public void buildAchievement() {
 		achievement = new Label("Odblokowano Acziwment");
 		achievement.setTranslateX(150);
+		achievement.setTranslateY(300);
+		achievement.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 50));
+		achievement.setTextFill(Color.RED);
+		
+		pane.getChildren().add(achievement);
+	}
+	
+	public void buildOverflow() {
+		achievement = new Label("Przepełnienie!");
+		achievement.setTranslateX(250);
+		achievement.setTranslateY(300);
+		achievement.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 50));
+		achievement.setTextFill(Color.RED);
+		
+		pane.getChildren().add(achievement);
+	}
+	
+	public void buildDeath() {
+		achievement = new Label("Umarłeś i nie żyjesz!");
+		achievement.setTranslateX(250);
 		achievement.setTranslateY(300);
 		achievement.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 50));
 		achievement.setTextFill(Color.RED);
@@ -110,7 +137,7 @@ public class Drawing {
 	}
 	
 	private void buildDog() {
-		dog.setTranslateX(225);
+		dog.setTranslateX(230);
 		dog.setTranslateY(270);
 		
 		dog.setScaleX(0.25);
@@ -126,9 +153,33 @@ public class Drawing {
 		tree.setTranslateY(-60);
 		
 		tree.setScaleX(0.5);
-		tree.setScaleY(0.5);
+		tree.setScaleY(0.6);
 		
 		pane.getChildren().add(tree);
+	}
+	
+	public void buildAchievement2() {
+		bag.setTranslateX(370);
+		bag.setTranslateY(-40);
+		
+		bag.setScaleX(0.1);
+		bag.setScaleY(0.1);
+		
+		bag.setVisible(false);
+		
+		pane.getChildren().add(bag);
+	}
+	
+	public void buildBleeding() {
+		bleeding.setTranslateX(-200);
+		bleeding.setTranslateY(220);
+		
+		bleeding.setScaleX(0.2);
+		bleeding.setScaleY(0.2);
+		
+		bleeding.setVisible(false);
+		
+		pane.getChildren().add(bleeding);
 	}
 	
 	private void buildCloud() {
@@ -183,12 +234,6 @@ public class Drawing {
 		
 		
 		pane.getChildren().add(archer);
-		
-		
-		//this.archer = new Archer();
-		//pane.getChildren().addAll(archer.getHead(), archer.getSpine(), archer.getHand1(), archer.getHand2(), archer.getLeg1(), archer.getLeg2());
-		//archer.setArcherPosition(50, 425);
-		//pane.getChildren().addAll(archer.)
 	}
 	
 	private void buildArc() {
@@ -203,13 +248,8 @@ public class Drawing {
 	}
 	
 	public void changeArcherPosition(int x, int y) {
-		//archer.setArcherPosition(x, y);
-		
 		archer.setLayoutY(y - 530);
-		//archer.setLayoutX(-400);
-		
 		arc.setArcPosition(x+40, y-160);
-		
 	}
 	
 	public void changeArcPosition(int x, int y) {
@@ -219,7 +259,6 @@ public class Drawing {
 	public void changeArrowPosition(int x, int y) {
 		this.arc.getArrow().setTranslateX(x);
 		this.arc.getArrow().setTranslateY(y);
-		//this.arc.getArrow().changeArrowPosition(x, y);
 	}
 	
 	public void changeArcIncline(double angle, int pow) {
@@ -232,6 +271,30 @@ public class Drawing {
 
 	public void changeArrowIncline(double angle, int pow, int x, int y) {
 		arc.changeArrowIncline(angle, pow, x, y);
+	}
+	
+	public void moveScene(int x, int y) {
+		int m = 70;
+		if(x<0)
+			archer.setTranslateX(archer.getTranslateX() + x/m);
+		else
+			archer.setTranslateX(archer.getTranslateX() + x/m);
+		
+		arc.moveArc(x/m);
+		cloud1.setTranslateX(cloud1.getTranslateX() + x/m);
+		cloud2.setTranslateX(cloud2.getTranslateX() + x/m);
+		cloud3.setTranslateX(cloud3.getTranslateX() + x/m);
+		
+		grass1.setTranslateX(grass1.getTranslateX() + x/m);
+		grass2.setTranslateX(grass2.getTranslateX() + x/m);
+		grass3.setTranslateX(grass3.getTranslateX() + x/m);
+		grass4.setTranslateX(grass4.getTranslateX() + x/m);
+		
+		tree.setTranslateX(tree.getTranslateX() + x/m);
+		
+		dog.setTranslateX(dog.getTranslateX() + x/m);
+		
+		bag.setTranslateX(bag.getTranslateX() + x/m);
 	}
 	
 	public void drawLine() {
@@ -249,12 +312,6 @@ public class Drawing {
 
         primaryStage.setScene(primaryScene);
         primaryStage.show();
-	}
-	
-	public void moveCamera(int x, int y) {
-		archer.setTranslateX(-400 + x);
-		archer.setTranslateY(-180 + y);
-		
 	}
 	
 	public void moveMarker(int x, int y) {
@@ -336,5 +393,12 @@ public class Drawing {
 		return tree;
 	}
 
+	public ImageView getBag() {
+		return bag;
+	}
+
+	public ImageView getBleeding() {
+		return bleeding;
+	}
 	
 }

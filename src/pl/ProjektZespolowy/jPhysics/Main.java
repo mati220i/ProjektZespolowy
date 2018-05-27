@@ -23,7 +23,7 @@ public class Main {
         for(; ; ) {
             pp = wzory.nowapozycja(strzala,powietrze,wiatr,czas);
 
-            System.out.println(pp[0]+ ";" +pp[1]+ " nach:" + strzala.getNachylenie() );
+            System.out.println(pp[0]+ ";" +pp[1]);//+ " nach:" + strzala.getNachylenie() );
             if(pp[1]<0)
                 break;
 

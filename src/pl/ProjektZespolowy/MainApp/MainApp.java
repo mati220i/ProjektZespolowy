@@ -27,7 +27,7 @@ public class MainApp extends Application {
 
 		primaryStage.setTitle("Projekt Zespołowy");
 		primaryStage.setX(30);
-		primaryStage.setY(30);
+		primaryStage.setY(10);
 		primaryStage.setHeight(1020);
 		primaryStage.setWidth(900);
 		primaryStage.setResizable(false);

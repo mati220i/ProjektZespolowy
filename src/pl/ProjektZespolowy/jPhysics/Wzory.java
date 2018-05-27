@@ -182,7 +182,6 @@ public class Wzory {
             sila = sila*(-1);
 
         double przyspieszenie = sila/strzala.getMasa();
-        System.out.println("        p:" +przyspieszenie);
         return przyspieszenie;
     }
 }

@@ -8,8 +8,6 @@ import javafx.scene.shape.Polyline;
 public class Arc {
 	private Polyline arm;
 	private Line string;
-	//private Arrow arrow;
-	
 	private ImageView arrow = new ImageView("/pl/ProjektZespolowy/resources/arrow1.png");
 	
 	
@@ -22,11 +20,8 @@ public class Arc {
 		string = new Line(12, 10, 12, 120);
 		arm.setStrokeWidth(4);
 		string.setStrokeWidth(2);
-		//arrow = new Arrow();
 		arrow.setScaleX(0.15);
 		arrow.setScaleY(0.15);
-		//arrow.setTranslateX(70);
-		//arrow.setTranslateY(440);
 	}
 
 	public void setArcPosition(int x, int y) {
@@ -34,7 +29,6 @@ public class Arc {
 		arm.setTranslateY(y);
 		string.setTranslateX(x);
 		string.setTranslateY(y);
-		//arrow.changeArrowPosition(x-10, y+35);
 		arrow.setTranslateX(x-430);
 		arrow.setTranslateY(y-40);
 		
@@ -43,6 +37,11 @@ public class Arc {
 		
 		xArrowPos = (int) arrow.getTranslateX();
 		yArrowPos = (int) arrow.getTranslateY();
+	}
+	
+	public void moveArc(int x) {
+		arm.setTranslateX(arm.getTranslateX() + x);
+		string.setTranslateX(string.getTranslateX() + x);
 	}
 	
 	public void setArcIncline(double angle, int pow) {
@@ -84,10 +83,6 @@ public class Arc {
 	public void changeArrowIncline(double angle, double pow) {
 		double angleInRadians = Math.toRadians(angle);
 		
-		//xArrowPos = (int) arrow.getTranslateX() + 430;
-		//yArrowPos = (int) arrow.getTranslateY() + 40;
-		//-339 y 328
-		
 		int x1 = (int) arrow.getLayoutX();
 		int y1 = (int) arrow.getLayoutY();
 		
@@ -97,9 +92,6 @@ public class Arc {
 		int x2 = (int) calculateX2(angleInRadians, x0, x1, y0, y1);
 		int y2 = (int) calculateY2(angleInRadians, x0, x1, y0, y1);
 		
-		//System.out.println("pos " + xArrowPos + " " + yArrowPos);
-		//System.out.println("bicz: " + (x2 + xArrowPos) + " y " + (y2 + yArrowPos));
-		
 		arrow.setRotate(angle);
 		arrow.setTranslateX(x2 + xArrowPos);
 		arrow.setTranslateY(y2 + yArrowPos);
@@ -107,10 +99,6 @@ public class Arc {
 	
 	public void changeArrowIncline(double angle, double pow, int x, int y) {
 		double angleInRadians = Math.toRadians(angle);
-		
-		//xArrowPos = (int) arrow.getTranslateX() + 430;
-		//yArrowPos = (int) arrow.getTranslateY() + 40;
-		//-339 y 328
 		
 		int x1 = (int) arrow.getLayoutX();
 		int y1 = (int) arrow.getLayoutY();
@@ -120,9 +108,6 @@ public class Arc {
 		
 		int x2 = (int) calculateX2(angleInRadians, x0, x1, y0, y1);
 		int y2 = (int) calculateY2(angleInRadians, x0, x1, y0, y1);
-		
-		//System.out.println("pos " + xArrowPos + " " + yArrowPos);
-		//System.out.println("bicz: " + (x2 + xArrowPos) + " y " + (y2 + yArrowPos));
 		
 		arrow.setRotate(angle);
 		arrow.setTranslateX(x2 + x);
@@ -151,9 +136,6 @@ public class Arc {
 
 	public void setArrow(Image arrow) {
 		this.arrow.setImage(arrow);
-		//this.arrow.setTranslateX(xArrowPos);
-		//this.arrow.setTranslateY(yArrowPos);
-		
 	}
 	
 	
