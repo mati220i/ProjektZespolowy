@@ -24,7 +24,7 @@ public class MainAppController {
 	@FXML
 	private ComboBox<String> typeOfArrow;
 	@FXML
-	private Button start, reset;
+	private Button start, reset, clearResults;
 
 	private Stage primaryStage;
 	private Scene primaryScene;
@@ -44,6 +44,7 @@ public class MainAppController {
 		drawing.setPrimaryScene(primaryScene);
 		drawing.setPane(pane);
 		drawing.buildScene();
+		drawing.buildRank();
 
 		final ObservableList<String> images = FXCollections.observableArrayList();
 
@@ -100,8 +101,7 @@ public class MainAppController {
 			grot = Groty.WOLNA;
 		
 		
-		
-		Strzala strzala = new Strzala(moc, -nachylenie, 0, 0, grot);
+		Strzala strzala = new Strzala(moc, -nachylenie, 0, 10, grot);
 		Powietrze powietrze = new Powietrze();
 		powietrze.setGestoscPowietrza(airDensity.getValue());
 		Wiatr wiatr = new Wiatr();
@@ -123,15 +123,14 @@ public class MainAppController {
 				newPosition[1] *= 10;
 				
 				int newArrowPositionX = (int) (newPosition[0] + x);
-				int newArrowPositionY = (int) (-newPosition[1] + y);
-				
+				int newArrowPositionY = (int) (-newPosition[1] + y + 100);
 				
 				if (newArrowPositionX >= 0) {
 					newArrowPositionX = 0;
 					drawing.moveScene((int)-newPosition[0], 0);
 				}
-				if(newArrowPositionX <= -360) {
-					newArrowPositionX = -360;
+				if(newArrowPositionX <= -400) {
+					newArrowPositionX = -400;
 					drawing.moveScene((int)-newPosition[0], 0);
 				}
 				drawing.changeArrowPosition(newArrowPositionX, newArrowPositionY);
@@ -221,24 +220,16 @@ public class MainAppController {
 					quantity--;
 				}
 				
-				if(newPosition[1]<0){
+				if(newPosition[1]<10){
 					
-					if(newArrowPositionX > -362 && newArrowPositionX < -325) {
+					if(newArrowPositionX > -400 && newArrowPositionX < -315) {
 						drawing.getBleeding().setVisible(true);
 						drawing.buildDeath();;
 					} else
 						drawing.getBleeding().setVisible(false);
 
-					
-		            stop();
-		            power.setDisable(false);
-		    		incline.setDisable(false);
-		    		wind.setDisable(false);
-		    		airDensity.setDisable(false);
-		    		archerPosition.setDisable(false);
-		    		typeOfArrow.setDisable(false);
-		    		start.setDisable(false);
-		    		
+					drawing.addToRankList((int)newPosition[0]/40);
+		            stop();		    		
 				}
 				
 				if(Double.isInfinite(newPosition[0]))
@@ -250,6 +241,14 @@ public class MainAppController {
 
 	@FXML
 	public void reset() {
+		power.setDisable(false);
+		incline.setDisable(false);
+		wind.setDisable(false);
+		airDensity.setDisable(false);
+		archerPosition.setDisable(false);
+		typeOfArrow.setDisable(false);
+		start.setDisable(false);
+		
 		power.setValue(25);
 		incline.setValue(0);
 		wind.setValue(0);
@@ -258,6 +257,12 @@ public class MainAppController {
 
 		drawing.removeScene();
 		drawing.buildScene();
+		drawing.refreshRank();
+	}
+	
+	@FXML
+	public void clearResults() {
+		drawing.clearRank();
 	}
 
 	@FXML

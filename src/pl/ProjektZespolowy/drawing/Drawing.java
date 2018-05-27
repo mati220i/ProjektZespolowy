@@ -1,5 +1,12 @@
 package pl.ProjektZespolowy.drawing;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -20,6 +27,8 @@ public class Drawing {
 	private Scene primaryScene;
 	private AnchorPane pane;
 	
+	private ArrayList<Integer> rankList = new ArrayList<>();
+	
 	private ImageView archer = new ImageView("/pl/ProjektZespolowy/resources/archer.png");
 	private ImageView cloud1 = new ImageView("/pl/ProjektZespolowy/resources/cloud.png");
 	private ImageView cloud2 = new ImageView("/pl/ProjektZespolowy/resources/cloud.png");
@@ -33,7 +42,7 @@ public class Drawing {
 	private ImageView bag = new ImageView("/pl/ProjektZespolowy/resources/plus.png");
 	private ImageView bleeding = new ImageView("/pl/ProjektZespolowy/resources/bleeding.png");
 	private Arc arc;
-	private Label distance, achievement;
+	private Label distance, achievement, rank;
 	
 	private Polygon marker = new Polygon(90, 30, 105, 10, 120, 30);
 	
@@ -67,6 +76,7 @@ public class Drawing {
 	public void removeScene() {
 		pane.getChildren().remove(archer);
 		pane.getChildren().remove(arc);
+		pane.getChildren().remove(arc.getArrow());
 		
 		pane.getChildren().remove(cloud1);
 		pane.getChildren().remove(cloud2);
@@ -90,6 +100,8 @@ public class Drawing {
 		pane.getChildren().remove(bag);
 		
 		pane.getChildren().remove(bleeding);
+		
+		pane.getChildren().remove(rank);
 	}
 	
 	public void buildAchievement() {
@@ -122,6 +134,22 @@ public class Drawing {
 		pane.getChildren().add(achievement);
 	}
 	
+	public void buildRank() {
+		rank = new Label("Ranking:");
+		rank.setTranslateX(750);
+		rank.setTranslateY(10);
+		rank.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 25));
+		rank.setTextFill(Color.BROWN);
+		
+		pane.getChildren().add(rank);
+	}
+	
+	public void clearRank() {
+		pane.getChildren().remove(rank);
+		rankList.removeAll(rankList);
+		buildRank();
+	}
+	
 	public void removeAchievement() {
 		pane.getChildren().remove(achievement);
 	}
@@ -131,7 +159,7 @@ public class Drawing {
 		distance.setTranslateX(20);
 		distance.setTranslateY(30);
 		distance.setFont(Font.font("System", FontWeight.BOLD, FontPosture.ITALIC, 24));
-		distance.setTextFill(Color.RED);
+		distance.setTextFill(Color.BROWN);
 		
 		pane.getChildren().add(distance);
 	}
@@ -319,7 +347,33 @@ public class Drawing {
 		marker.setTranslateY(y);
 	}
 	
+	public void addToRankList(Integer value) {
+		rankList.add(value);
+		int i = 0;
+		String ranking = "";
+		java.util.Collections.sort(rankList);
+		java.util.Collections.reverse(rankList);
+		Iterator<Integer> it = rankList.iterator();
+		
+		while (i < 3 && it.hasNext()) 
+			ranking += "\n" + ++i + ". " + it.next() + " m";
+		
+		rank.setText("Ranking:" + ranking);
+	}
 	
+	public void refreshRank() {
+		int i = 0;
+		String ranking = "";
+		java.util.Collections.sort(rankList);
+		java.util.Collections.reverse(rankList);
+		Iterator<Integer> it = rankList.iterator();
+		
+		while (i < 3 && it.hasNext()) 
+			ranking += "\n" + ++i + ". " + it.next() + " m";
+		
+		rank.setText("Ranking:" + ranking);
+		pane.getChildren().add(rank);
+	}
 	    
 	public ImageView getCloud1() {
 		return cloud1;

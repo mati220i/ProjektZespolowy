@@ -72,7 +72,7 @@
                   </HBox>
                </children>
             </GridPane>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <Label text="Pozycja Łucznika">
                      <font>
@@ -80,6 +80,11 @@
                      </font>
                   </Label>
                   <Slider fx:id="archerPosition" onMouseDragged="#changePosition" prefWidth="250.0" showTickLabels="true" showTickMarks="true" value="80.0" />
+                  <Button fx:id="clearResults" mnemonicParsing="false" onAction="#clearResults" text="Wyczyść wyniki">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
                   <Button fx:id="reset" mnemonicParsing="false" onAction="#reset" text="Reset">
                      <font>
                         <Font size="30.0" />
