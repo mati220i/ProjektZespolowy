@@ -234,6 +234,8 @@ public class MainAppController {
 				
 				if(Double.isInfinite(newPosition[0]))
 					drawing.buildOverflow();
+				if(Double.isNaN(newPosition[0]))
+					drawing.buildOverflow();
 			}
 		}.start();
 

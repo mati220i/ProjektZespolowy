@@ -356,7 +356,7 @@ public class Drawing {
 		Iterator<Integer> it = rankList.iterator();
 		
 		while (i < 3 && it.hasNext()) 
-			ranking += "\n" + ++i + ". " + it.next() + " m";
+			ranking += "\n" + ++i + ": " + it.next() + " m";
 		
 		rank.setText("Ranking:" + ranking);
 	}
@@ -369,7 +369,7 @@ public class Drawing {
 		Iterator<Integer> it = rankList.iterator();
 		
 		while (i < 3 && it.hasNext()) 
-			ranking += "\n" + ++i + ". " + it.next() + " m";
+			ranking += "\n" + ++i + ": " + it.next() + " m";
 		
 		rank.setText("Ranking:" + ranking);
 		pane.getChildren().add(rank);
