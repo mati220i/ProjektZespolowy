@@ -3,7 +3,7 @@ package pl.ProjektZespolowy.jPhysics;
 public class Main {
 
 	public static void main(String[] args) {
-		Strzala strzala = new Strzala(100 ,30, 0, 0, Groty.NORMALNA);
+		Strzala strzala = new Strzala(100 ,40, 0, 10, Groty.NORMALNA);
 		Powietrze powietrze = new Powietrze();
 		Wiatr wiatr = new Wiatr();
 		

@@ -32,17 +32,17 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <Label text="Moc">
+                        <Label text="Moc [m/s]">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="power" onMouseDragged="#changePower" prefWidth="300.0" showTickLabels="true" showTickMarks="true" value="25.0" />
+                        <Slider fx:id="power" onMouseDragged="#changePower" prefWidth="280.0" showTickLabels="true" showTickMarks="true" value="25.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
                      <children>
-                        <Label text="Nachylenie">
+                        <Label text="Nachylenie [°]">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -52,22 +52,22 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Gęstość Powietrza">
+                        <Label text="Gęstość Powietrza [kg/m^3]">
                            <font>
                               <Font size="21.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="airDensity" blockIncrement="0.0" majorTickUnit="5.0" max="15.0" prefWidth="230.0" showTickLabels="true" showTickMarks="true" value="2.0" />
+                        <Slider fx:id="airDensity" blockIncrement="0.0" majorTickUnit="5.0" max="15.0" prefWidth="150.0" showTickLabels="true" showTickMarks="true" value="2.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Wiatr">
+                        <Label text="Wiatr [m/s]">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="wind" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                        <Slider fx:id="wind" prefWidth="250.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                      </children>
                   </HBox>
                </children>

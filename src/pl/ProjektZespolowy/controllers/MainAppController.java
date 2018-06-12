@@ -135,7 +135,7 @@ public class MainAppController {
 				}
 				drawing.changeArrowPosition(newArrowPositionX, newArrowPositionY);
 				drawing.moveMarker(newArrowPositionX + 340, 0);
-				drawing.getDistance().setText("Odległość: " + (int)newPosition[0]/40 + " m");
+				drawing.getDistance().setText("Odległość: " + (int)newPosition[0]/40  + " m");
 				
 				
 				// po 4 przewinietych drzewach w prawo pojawia acziwment :D
